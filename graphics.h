@@ -10,9 +10,8 @@ class Graphics {
 	public:
 		Graphics();
 		~Graphics();
-		
-		SDL_Surface* loadImage(const std::string& filePath);	// Loads image into _spritesheets map
-																// if it doesn't exist
+		// Loads image into _spritesheets map
+		SDL_Surface* loadImage(const string &filePath);	
 		// Draws textures to the screen
 		void blitSurface(SDL_Texture* source, SDL_Rect* sourceRectangle, SDL_Rect* destinationRectangle);
 		
@@ -28,7 +27,7 @@ class Graphics {
 		then flip renders it to the screen
 		*/
 
-		const SDL_Renderer* getRenderer(); // return the render to use it elsewhere
+		SDL_Renderer* getRenderer() const; // return the render to use it elsewhere
 
 	private:
 		SDL_Window* _window;

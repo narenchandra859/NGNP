@@ -1,14 +1,15 @@
 // Implementation of the graphics class
+#include "SDL_image.h"
 #include "graphics.h"
 // All info regarding graphics of our game
 #include <SDL.h>
-#include <SDL_image.h>
+#include "globals.h"
 using namespace std;
 
 // Constructor creates the window and sets the title
 
 Graphics::Graphics() {
-	SDL_CreateWindowAndRenderer(1080, 720, 0, &_window, &_renderer); // Game window is 1080x720
+	SDL_CreateWindowAndRenderer(globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0, &_window, &_renderer); // Game window is 1080x720
 	SDL_SetWindowTitle(_window, "NGNP");
 }
 // Destructor just destroys the window
@@ -42,6 +43,6 @@ void Graphics::clear() {
 	SDL_RenderClear(_renderer);
 }
 
-const SDL_Renderer* Graphics::getRenderer() {
+SDL_Renderer* Graphics::getRenderer() const{
 	return _renderer;
 }

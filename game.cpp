@@ -19,6 +19,7 @@ void Game::gameLoop() {
 	Graphics graphics;
 	SDL_Event event;		// SDL checks for all types of events and stores it here
 	Input input;
+	player = Sprite(graphics, "Content/Sprites/MyChar.png", 0, 0, 16, 16, 250, 250);
 	int LAST_UPDATE_TIME = SDL_GetTicks(); // number of ms before SDL was init'd
 	while (1) {	
 		input.beginNewFrame();			// at start of each frame, start a new frame
@@ -48,10 +49,13 @@ void Game::gameLoop() {
 														// it doesn't go over 50 fps (slow PC vs fast PC -> fast PC will win if we don't)
 														// so we get the same dist on both fast and slow PCs (physics has to be same)
 	LAST_UPDATE_TIME = CURRENT_TIME_MS;
+	draw(graphics);
 	}
 }
 void Game::draw(Graphics& graphics) {
-	
+	graphics.clear();
+	player.draw(graphics, 250, 250);
+	graphics.flip();
 }
 void Game::update(float elapsedTime) {
 
