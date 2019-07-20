@@ -15,11 +15,14 @@ namespace {
 	const int FPS = 60;		// limits FPS
 	const int MAX_FRAME_TIME = 6 * 1000 / FPS; // max time per frame
 }
+
 void Game::gameLoop() {
 	Graphics graphics;
 	SDL_Event event;		// SDL checks for all types of events and stores it here
 	Input input;
-	player = Sprite(graphics, "Content/Sprites/MyChar.png", 0, 0, 16, 16, 250, 250);
+	player = AnimatedSprite(graphics, "Content/Sprites/MyChar.png", 0, 0, 30, 41, 250, 250, 100);
+	player.setupAnimations();
+	player.playAnimation("IdlePosition"); 
 	int LAST_UPDATE_TIME = SDL_GetTicks(); // number of ms before SDL was init'd
 	while (1) {	
 		input.beginNewFrame();			// at start of each frame, start a new frame
@@ -58,5 +61,5 @@ void Game::draw(Graphics& graphics) {
 	graphics.flip();
 }
 void Game::update(float elapsedTime) {
-
+	player.update(elapsedTime);
 }
