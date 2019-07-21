@@ -62,17 +62,19 @@ void AnimatedSprite::draw(Graphics& graphics, int x, int y) {		// similar to spr
 		SDL_Rect destRectangle;
 		destRectangle.x = x + _offsets[_currentAnimation].x;		// add the x offset
 		destRectangle.y = y + _offsets[_currentAnimation].y;		// add the y offset
-		destRectangle.w = _sourceRect.w * globals::SPRITE_SCALE;
-		destRectangle.h = _sourceRect.h * globals::SPRITE_SCALE;
+		destRectangle.w = _sourceRect.w * globals::SPRITE_SCALE_W;
+		destRectangle.h = _sourceRect.h * globals::SPRITE_SCALE_H;
 		// the correct rectangle we're drawing	
 		SDL_Rect sourceRect = _animations[_currentAnimation][_frameIndex];
 		graphics.blitSurface(_spriteSheet, &sourceRect, &destRectangle);
 	}
 }
-void AnimatedSprite::animationDone(string currentAnimation) {
+
+/*void AnimatedSprite::animationDone(string currentAnimation) {
 }
+
 void AnimatedSprite::setupAnimations() {
 	// impl in player class later
 	addAnimation(5, 321, 11, "RunRight", 30, 41, Vector2(0, 0));
 	addAnimation(5, 6, 10, "IdlePosition", 25, 41, Vector2(0, 0));
-}
+}*/

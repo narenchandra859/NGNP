@@ -19,7 +19,6 @@ class AnimatedSprite : public Sprite {
 		// updates animated sprite -> timer to keep track of how long before next frame
 		void update(int elapsedTime);
 		void draw(Graphics& graphics, int x, int y);
-		virtual void setupAnimations();	// pvf later after player class impl'd
 	protected:
 		double _timeToUpdate;
 		bool _currentAnimationOnce;
@@ -33,7 +32,8 @@ class AnimatedSprite : public Sprite {
 		// visibility change
 		void setVisible(bool visible);
 		// what happens when an animation ends
-		virtual void animationDone(string currentAnimation);
+		virtual void animationDone(string currentAnimation) = 0;
+		virtual void setupAnimations() = 0;	// pvf later after player class impl'd
 	private:
 		map<string, vector<SDL_Rect>> _animations;	// map to hold all the animations (string -> its animation)
 													// vector of rect -> each spritesheet model for each frame

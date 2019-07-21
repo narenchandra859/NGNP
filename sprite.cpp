@@ -21,7 +21,7 @@ Sprite::Sprite(Graphics& graphics, const string& filePath, int sourceX, int sour
 Sprite::~Sprite() {}
 
 void Sprite::draw(Graphics& graphics, int x, int y) {
-	SDL_Rect destinationRectangle = { x, y, _sourceRect.w * globals::SPRITE_SCALE, _sourceRect.h * globals::SPRITE_SCALE};	
+	SDL_Rect destinationRectangle = { x, y, _sourceRect.w * globals::SPRITE_SCALE_W, _sourceRect.h * globals::SPRITE_SCALE_H};	
 	graphics.blitSurface(_spriteSheet, &_sourceRect, &destinationRectangle);	// draw!!
 }
 

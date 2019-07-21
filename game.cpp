@@ -4,6 +4,9 @@
 #include <SDL.h>
 #include "graphics.h"
 #include "input.h"
+
+// current issues: check player.cpp
+
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);	// Initializes everything
 	gameLoop();
@@ -12,17 +15,15 @@ Game::~Game() {
 
 }
 namespace {
-	const int FPS = 60;		// limits FPS
-	const int MAX_FRAME_TIME = 6 * 1000 / FPS; // max time per frame
+	const int FPS = 50;		// limits FPS
+	const int MAX_FRAME_TIME = 5 * 1000 / FPS; // max time per frame
 }
 
 void Game::gameLoop() {
 	Graphics graphics;
 	SDL_Event event;		// SDL checks for all types of events and stores it here
 	Input input;
-	player = AnimatedSprite(graphics, "Content/Sprites/MyChar.png", 0, 0, 30, 41, 250, 250, 100);
-	player.setupAnimations();
-	player.playAnimation("IdlePosition"); 
+	player = Player(graphics, 250, 250);
 	int LAST_UPDATE_TIME = SDL_GetTicks(); // number of ms before SDL was init'd
 	while (1) {	
 		input.beginNewFrame();			// at start of each frame, start a new frame
@@ -42,6 +43,16 @@ void Game::gameLoop() {
 		if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) {	
 			return;											// pressing ESC also closes the game now
 		}
+		else if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
+			player.moveLeft();
+		}
+		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true) {
+			player.moveRight();
+		}
+
+		if (!input.isKeyHeld(SDL_SCANCODE_LEFT) && !input.isKeyHeld(SDL_SCANCODE_RIGHT)) {
+			player.stopMoving();
+		}
 	// before the loop ends, we need to set the time
 	const int CURRENT_TIME_MS = SDL_GetTicks();
 	// diff b/w curr_time_ms and last_upd_time = how long this frame took.
@@ -57,7 +68,7 @@ void Game::gameLoop() {
 }
 void Game::draw(Graphics& graphics) {
 	graphics.clear();
-	player.draw(graphics, 250, 250);
+	player.draw(graphics);
 	graphics.flip();
 }
 void Game::update(float elapsedTime) {
